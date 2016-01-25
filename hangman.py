@@ -74,9 +74,7 @@ def home():
 @app.route('/game/new')
 def new_game():
     player = flask.request.args.get('player')
-    print flask.request.args
     game = Game(player)
-    print game.__dict__
     db.session.add(game)
     db.session.commit()
     return flask.redirect(flask.url_for('game', id=game.id))
