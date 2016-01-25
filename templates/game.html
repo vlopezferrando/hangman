@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <!--  Hangman drawing svg -->
+ 
+  {% if game.finished %}
+    <h1>
+      {% for letter in game.word %}
+        <span class="
+          text-{% if letter in game.tried %}success{% else %}danger{% endif %}">
+          {{ letter }}
+        </span>
+      {% endfor %}
+    </h1>
+    <h3>
+      {% if game.won %} You won! {% else %} You lost :-( {% endif %}
+    </h3>
+    <p>
+      <a class="btn btn-default" href="{{ url_for('home') }}">Home</a>
+      <a class="btn btn-primary"
+         href="{{ url_for('new_game') }}?player={{ game.player }}">
+        Play again
+      </a>
+    </p>
+  {% else %}
+    <h1 id="current" class="spaced">{{ game.current }}</h1>
+  {% endif %}
+
+  <h2 class="vspace" id="errors">
+    Errors ({{ game.errors|length }}/6):
+    <span class="text-danger spaced">{{ game.errors }}</span>
+  </h2>
+
+  {% if not game.finished %}
+    <form method="post" id="letter-form" class="form-inline vspace">
+      <div class="form-group">
+        <input class="input-lg text-uppercase" maxlength="1" size="1"
+               name="letter" autocomplete="off" autofocus>
+      </div>
+      <button type="submit" class="btn btn-default btn-lg">Try letter</button>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block bottom %}
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+  <script>
+    {% for i in range(game.errors|length, 7) %}
+      $('#hangman-{{ i }}').hide();
+    {% endfor %}
+  </script>
+{% endblock %}
