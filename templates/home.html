@@ -24,8 +24,8 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ game.player }}</td>
-            <td class="text-success text-uppercase">{{ game.current }}</td>
-            <td class="text-danger text-uppercase spaced">{{ game.errors }}</td>
+            <td class="text-success">{{ game.current }}</td>
+            <td class="text-danger spaced">{{ game.errors }}</td>
             <td>{{ game.points }}</td>
         {% endfor %}
     </table>
