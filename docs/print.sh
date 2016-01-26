@@ -4,7 +4,7 @@ CODE=docs/code.html
 
 cd ..
 echo '<!DOCTYPE html><html><head><meta charset="utf-8">' > $CODE
-echo '<style>h2{margin: 10px 0;}</style></head><body>' >> $CODE
+echo '<style>h2{margin: 5px 0;}</style></head><body>' >> $CODE
 
 echo "<h2>Files</h2>" >> $CODE
 echo "<pre>" >> $CODE
@@ -28,8 +28,8 @@ pygmentize -f html -O full,linenos=1 templates/index.html >> $CODE
 echo "<h2>templates/home.html</h2>" >> $CODE
 pygmentize -f html -O full,linenos=1 templates/home.html >> $CODE
 
-echo "<h2>templates/game.html</h2>" >> $CODE
-pygmentize -f html -O full,linenos=1 templates/game.html >> $CODE
+echo "<h2>templates/play.html</h2>" >> $CODE
+pygmentize -f html -O full,linenos=1 templates/play.html >> $CODE
 
 echo "<h2>static/main.js</h2>" >> $CODE
 pygmentize -f html -O full,linenos=1 static/main.js >> $CODE

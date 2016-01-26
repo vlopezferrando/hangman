@@ -18,6 +18,10 @@ Simple hangman game implemented with Flask
 
     python hangman.py
 
+Create dabase with:
+
+    python -c 'from hangman import db; db.create_all()'
+
 # Links
 
 * Hangman github repository: https://github.com/vlopezferrando/hangman

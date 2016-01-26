@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
-<style>h2{margin: 10px 0;}</style></head><body>
+<style>h2{margin: 5px 0;}</style></head><body>
 <h2>Files</h2>
 <pre>
 hangman                     	Language      files     blank   comment      code
@@ -12,9 +12,9 @@ hangman                     	Language      files     blank   comment      code
 │   ├── main.css            	
 │   └── main.js             	
 ├── templates               	
-│   ├── game.html           	
 │   ├── home.html           	
-│   └── index.html          	
+│   ├── index.html          	
+│   └── play.html           	
 └── words.txt               	
 </pre>
 <h2>hangman.py</h2>
@@ -211,7 +211,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="c"># Model</span>
 
-<span class="k">def</span> <span class="nf">random_id</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">random_pk</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">1e10</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">random_word</span><span class="p">():</span>
@@ -219,13 +219,13 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
     <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">words</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">Game</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">random_id</span><span class="p">)</span>
+    <span class="n">pk</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">random_pk</span><span class="p">)</span>
     <span class="n">word</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">random_word</span><span class="p">)</span>
     <span class="n">tried</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
     <span class="n">player</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">):</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">player</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">player</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">errors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -270,17 +270,17 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">game</span><span class="p">:</span> <span class="o">-</span><span class="n">game</span><span class="o">.</span><span class="n">points</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">render_template</span><span class="p">(</span><span class="s">&#39;home.html&#39;</span><span class="p">,</span> <span class="n">games</span><span class="o">=</span><span class="n">games</span><span class="p">)</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/game/new&#39;</span><span class="p">)</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/play&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">new_game</span><span class="p">():</span>
     <span class="n">player</span> <span class="o">=</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;player&#39;</span><span class="p">)</span>
     <span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
     <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
     <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="n">flask</span><span class="o">.</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;game&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">game</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="n">flask</span><span class="o">.</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;play&#39;</span><span class="p">,</span> <span class="n">game_id</span><span class="o">=</span><span class="n">game</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/game/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="s">&#39;POST&#39;</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">game</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-    <span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get_or_404</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/play/&lt;game_id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="s">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">play</span><span class="p">(</span><span class="n">game_id</span><span class="p">):</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get_or_404</span><span class="p">(</span><span class="n">game_id</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">letter</span> <span class="o">=</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;letter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -292,7 +292,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
                              <span class="n">errors</span><span class="o">=</span><span class="n">game</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span>
                              <span class="n">finished</span><span class="o">=</span><span class="n">game</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">render_template</span><span class="p">(</span><span class="s">&#39;game.html&#39;</span><span class="p">,</span> <span class="n">game</span><span class="o">=</span><span class="n">game</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">render_template</span><span class="p">(</span><span class="s">&#39;play.html&#39;</span><span class="p">,</span> <span class="n">game</span><span class="o">=</span><span class="n">game</span><span class="p">)</span>
 
 <span class="c"># Main</span>
 
@@ -723,7 +723,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 </pre></div>
 </td></tr></table></body>
 </html>
-<h2>templates/game.html</h2>
+<h2>templates/play.html</h2>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 
@@ -1192,6 +1192,10 @@ Simple hangman game implemented with Flask
 # Run
 
     python hangman.py
+
+Create dabase with:
+
+    python -c &#39;from hangman import db; db.create_all()&#39;
 
 # Links
 

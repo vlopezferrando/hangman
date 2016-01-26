@@ -12,7 +12,7 @@ db = SQLAlchemy(app)
 
 # Model
 
-def random_id():
+def random_pk():
     return random.randint(1e9, 1e10)
 
 def random_word():
@@ -20,13 +20,13 @@ def random_word():
     return random.choice(words).upper()
 
 class Game(db.Model):
-    id = db.Column(db.Integer, primary_key=True, default=random_id)
+    pk = db.Column(db.Integer, primary_key=True, default=random_pk)
     word = db.Column(db.String(50), default=random_word)
     tried = db.Column(db.String(50), default='')
     player = db.Column(db.String(50))
 
     def __init__(self, player):
-      self.player = player
+        self.player = player
 
     @property
     def errors(self):
@@ -71,17 +71,17 @@ def home():
         key=lambda game: -game.points)[:10]
     return flask.render_template('home.html', games=games)
 
-@app.route('/game/new')
+@app.route('/play')
 def new_game():
     player = flask.request.args.get('player')
     game = Game(player)
     db.session.add(game)
     db.session.commit()
-    return flask.redirect(flask.url_for('game', id=game.id))
+    return flask.redirect(flask.url_for('play', game_id=game.pk))
 
-@app.route('/game/<id>', methods=['GET', 'POST'])
-def game(id):
-    game = Game.query.get_or_404(id)
+@app.route('/play/<game_id>', methods=['GET', 'POST'])
+def play(game_id):
+    game = Game.query.get_or_404(game_id)
 
     if flask.request.method == 'POST':
         letter = flask.request.form['letter'].upper()
@@ -93,7 +93,7 @@ def game(id):
                              errors=game.errors,
                              finished=game.finished)
     else:
-        return flask.render_template('game.html', game=game)
+        return flask.render_template('play.html', game=game)
 
 # Main
 
