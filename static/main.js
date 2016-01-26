@@ -26,10 +26,13 @@ $('#letter-form').submit(function(e) {
           '<span class="text-danger spaced">' + data.errors + '</span>');
           
         /* Update drawing */
-        for (var i = 0; i < data.errors.length; i++)
-          $('#hangman-' + i).show();
+        updateDrawing(data.errors);
       }
     }
   });
   e.preventDefault();
 });
+
+function updateDrawing(errors) {
+  $('#hangman-drawing').children().slice(0, errors.length).show();
+}

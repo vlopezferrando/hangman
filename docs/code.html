@@ -1,3 +1,22 @@
+<h2>Files</h2>
+<pre>
+.
+├── hangman.db
+├── hangman.py
+├── static
+│   ├── bootstrap.min.css
+│   ├── bootstrap.min.js
+│   ├── jquery.min.js
+│   ├── main.css
+│   └── main.js
+├── templates
+│   ├── game.html
+│   ├── home.html
+│   └── index.html
+└── words.txt
+
+2 directories, 13 files
+</pre>
 <h2>hangman.py</h2>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
@@ -9,7 +28,7 @@
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -178,9 +197,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
  98
  99
 100
-101
-102
-103</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
+101</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
 
 <span class="kn">import</span> <span class="nn">flask</span>
 <span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
@@ -256,9 +273,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/game/new&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">new_game</span><span class="p">():</span>
     <span class="n">player</span> <span class="o">=</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;player&#39;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">args</span>
     <span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">game</span><span class="o">.</span><span class="n">__dict__</span>
     <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
     <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="n">flask</span><span class="o">.</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;game&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">game</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
@@ -297,7 +312,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -376,7 +391,20 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span class="nt">th</span> <span class="p">{</span>
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="nt">th</span> <span class="p">{</span>
   <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span>
 <span class="p">}</span>
 
@@ -386,6 +414,19 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="nc">.spaced</span> <span class="p">{</span>
   <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Drawing */</span>
+
+<span class="nf">#drawing</span> <span class="p">{</span>
+  <span class="n">fill</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="n">stroke</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+  <span class="n">stroke</span><span class="o">-</span><span class="k">width</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span>
+  <span class="n">stroke</span><span class="o">-</span><span class="n">linecap</span><span class="o">:</span> <span class="n">round</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#hangman-drawing</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">none</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></body>
@@ -401,7 +442,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -545,7 +586,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -672,8 +713,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
           <span class="nt">&lt;tr&gt;</span>
             <span class="nt">&lt;td&gt;</span>{{ loop.index }}<span class="nt">&lt;/td&gt;</span>
             <span class="nt">&lt;td&gt;</span>{{ game.player }}<span class="nt">&lt;/td&gt;</span>
-            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;text-success text-uppercase&quot;</span><span class="nt">&gt;</span>{{ game.current }}<span class="nt">&lt;/td&gt;</span>
-            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;text-danger text-uppercase spaced&quot;</span><span class="nt">&gt;</span>{{ game.errors }}<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;text-success&quot;</span><span class="nt">&gt;</span>{{ game.current }}<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;text-danger spaced&quot;</span><span class="nt">&gt;</span>{{ game.errors }}<span class="nt">&lt;/td&gt;</span>
             <span class="nt">&lt;td&gt;</span>{{ game.points }}<span class="nt">&lt;/td&gt;</span>
         {% endfor %}
     <span class="nt">&lt;/table&gt;</span>
@@ -693,7 +734,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -813,10 +854,40 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 49
 50
 51
-52</pre></div></td><td class="code"><div class="highlight"><pre>{% extends &#39;index.html&#39; %}
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre></div></td><td class="code"><div class="highlight"><pre>{% extends &#39;index.html&#39; %}
 
 {% block content %}
-  <span class="c">&lt;!-- Hangman svg --&gt;</span>
+  <span class="nt">&lt;svg</span> <span class="na">width=</span><span class="s">&quot;250&quot;</span> <span class="na">height=</span><span class="s">&quot;230&quot;</span> <span class="na">id=</span><span class="s">&quot;drawing&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Structure --&gt;</span>
+    <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;220&quot;</span> <span class="na">y2=</span><span class="s">&quot;220&quot;</span> <span class="na">x1=</span><span class="s">&quot;10&quot;</span> <span class="na">x2=</span><span class="s">&quot;120&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;10&quot;</span> <span class="na">y2=</span><span class="s">&quot;220&quot;</span> <span class="na">x1=</span><span class="s">&quot;65&quot;</span> <span class="na">x2=</span><span class="s">&quot;65&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;10&quot;</span> <span class="na">y2=</span><span class="s">&quot;10&quot;</span> <span class="na">x1=</span><span class="s">&quot;65&quot;</span> <span class="na">x2=</span><span class="s">&quot;175&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;10&quot;</span> <span class="na">y2=</span><span class="s">&quot;40&quot;</span> <span class="na">x1=</span><span class="s">&quot;175&quot;</span> <span class="na">x2=</span><span class="s">&quot;175&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Hangman --&gt;</span>
+    <span class="nt">&lt;g</span> <span class="na">id=</span><span class="s">&quot;hangman-drawing&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;circle</span> <span class="na">cx=</span><span class="s">&quot;175&quot;</span> <span class="na">cy=</span><span class="s">&quot;55&quot;</span> <span class="na">r=</span><span class="s">&quot;15&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;ellipse</span> <span class="na">cx=</span><span class="s">&quot;175&quot;</span> <span class="na">cy=</span><span class="s">&quot;115&quot;</span> <span class="na">rx=</span><span class="s">&quot;20&quot;</span> <span class="na">ry=</span><span class="s">&quot;45&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;150&quot;</span> <span class="na">y2=</span><span class="s">&quot;190&quot;</span> <span class="na">x1=</span><span class="s">&quot;162&quot;</span> <span class="na">x2=</span><span class="s">&quot;140&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;150&quot;</span> <span class="na">y2=</span><span class="s">&quot;190&quot;</span> <span class="na">x1=</span><span class="s">&quot;188&quot;</span> <span class="na">x2=</span><span class="s">&quot;210&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;80&quot;</span> <span class="na">y2=</span><span class="s">&quot;40&quot;</span> <span class="na">x1=</span><span class="s">&quot;162&quot;</span> <span class="na">x2=</span><span class="s">&quot;140&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;line</span> <span class="na">y1=</span><span class="s">&quot;80&quot;</span> <span class="na">y2=</span><span class="s">&quot;40&quot;</span> <span class="na">x1=</span><span class="s">&quot;188&quot;</span> <span class="na">x2=</span><span class="s">&quot;210&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/g&gt;</span>
+  <span class="nt">&lt;/svg&gt;</span>
 
   {% if game.finished %}
     <span class="nt">&lt;h1&gt;</span>
@@ -860,9 +931,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 {% block bottom %}
   <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;{{ url_for(&#39;static&#39;, filename=&#39;main.js&#39;) }}&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
   <span class="nt">&lt;script&gt;</span>
-    <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">range</span><span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">errors</span><span class="o">|</span><span class="nx">length</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">%</span><span class="p">}</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hangman-{{ i }}&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-    <span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
+    <span class="nx">updateDrawing</span><span class="p">(</span><span class="s1">&#39;{{ game.errors }}&#39;</span><span class="p">);</span>
   <span class="nt">&lt;/script&gt;</span>
 {% endblock %}
 </pre></div>
@@ -879,7 +948,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -981,7 +1050,10 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 31
 32
 33
-34</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Submit letter */</span>
+34
+35
+36
+37</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Submit letter */</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#letter-form&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#letter-form&quot;</span><span class="p">).</span><span class="nx">serialize</span><span class="p">();</span>
@@ -1008,13 +1080,16 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
           <span class="s1">&#39;&lt;span class=&quot;text-danger spaced&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">errors</span> <span class="o">+</span> <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">);</span>
           
         <span class="cm">/* Update drawing */</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hangman-&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+        <span class="nx">updateDrawing</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">errors</span><span class="p">);</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">});</span>
   <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
 <span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">updateDrawing</span><span class="p">(</span><span class="nx">errors</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hangman-drawing&#39;</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </td></tr></table></body>
 </html>
@@ -1029,7 +1104,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
+pre { line-height: 125%; font-size: 14px}
 body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
 body .c { color: #408080; font-style: italic } /* Comment */
@@ -1099,6 +1174,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <h2></h2>
 
 <div class="highlight"><pre># Hangman
+
 Simple hangman game implemented with Flask
 
 # Installation
@@ -1110,7 +1186,7 @@ Simple hangman game implemented with Flask
 ## Option 2: pip
 
 [Install pip](https://pip.pypa.io/en/stable/installing/), then:
-  
+
     pip install Flask Flask-SQLAlchemy
 
 # Run
@@ -1118,6 +1194,7 @@ Simple hangman game implemented with Flask
     python hangman.py
 
 # Links
+
 * Hangman github repository: https://github.com/vlopezferrando/hangman
 * Slides: https://slides.com/victorlf/flask
 * Flask: http://flask.pocoo.org

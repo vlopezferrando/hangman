@@ -1,4 +1,5 @@
 # Hangman
+
 Simple hangman game implemented with Flask
 
 # Installation
@@ -10,7 +11,7 @@ Simple hangman game implemented with Flask
 ## Option 2: pip
 
 [Install pip](https://pip.pypa.io/en/stable/installing/), then:
-  
+
     pip install Flask Flask-SQLAlchemy
 
 # Run
@@ -18,6 +19,7 @@ Simple hangman game implemented with Flask
     python hangman.py
 
 # Links
+
 * Hangman github repository: https://github.com/vlopezferrando/hangman
 * Slides: https://slides.com/victorlf/flask
 * Flask: http://flask.pocoo.org

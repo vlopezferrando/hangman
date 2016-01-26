@@ -11,3 +11,15 @@ th {
   letter-spacing: 15px;
 }
 
+/* Drawing */
+
+#drawing {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+#hangman-drawing > * {
+  display: none
+}
